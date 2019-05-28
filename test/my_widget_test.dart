@@ -32,4 +32,12 @@ void main() {
 
     expect(find.byKey(testKey), findsOneWidget);
   });
+
+  testWidgets('finds a specific instance', (WidgetTester tester) async {
+    final childWidget = Padding(padding: EdgeInsets.zero);
+
+    await tester.pumpWidget(Container(child: childWidget));
+
+    expect(find.byWidget(childWidget), findsOneWidget);
+  });
 }
