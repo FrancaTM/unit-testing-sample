@@ -24,4 +24,12 @@ void main() {
 
     expect(find.text('H'), findsOneWidget);
   });
+
+  testWidgets('finds a Widget using a Key', (WidgetTester tester) async {
+    final testKey = Key('K');
+
+    await tester.pumpWidget(MaterialApp(key: testKey, home: Container()));
+
+    expect(find.byKey(testKey), findsOneWidget);
+  });
 }
