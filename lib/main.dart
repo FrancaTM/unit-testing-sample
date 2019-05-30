@@ -21,8 +21,8 @@ Future<Post> fetchPost(http.Client client) async {
 
 void main() {
   http.Client client = http.Client();
-//  runApp(MyApp(post: fetchPost(client)));
-  runApp(TodoList());
+  runApp(MyApp(post: fetchPost(client)));
+//  runApp(TodoList());
 }
 
 class MyApp extends StatelessWidget {
