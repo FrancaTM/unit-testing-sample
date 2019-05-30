@@ -10,5 +10,14 @@ void main() {
 
     // Enter 'hi' into the TextField
     await tester.enterText(find.byType(TextField), 'test');
+
+    // Tap the add button
+    await tester.tap(find.byType(FloatingActionButton));
+
+    // Rebuild the Widget after the state has changed
+    await tester.pump();
+
+    // Expect to find the item on screen
+    expect(find.text('test'), findsOneWidget);
   });
 }
