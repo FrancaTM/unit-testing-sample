@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+/// run the test - step 4
+/// flutter drive --target=test_driver/app.dart
 
 void main() {
   runApp(MyApp(
-    items: List<String>.generate(10000, (i) => 'Item $i'),
+    items: List<String>.generate(10000, (i) => "Item $i"),
   ));
 }
 
@@ -13,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Long list';
+    final title = 'Long List';
 
     return MaterialApp(
       title: title,
@@ -22,19 +26,22 @@ class MyApp extends StatelessWidget {
           title: Text(title),
         ),
         body: ListView.builder(
-            // Add a key to the ListView. This allows us to find the list and
-            // scroll through it in our tests
-            key: Key('long_list'),
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text('${items[index]}'),
+          // Add a key to the ListView. This allows us to find the list and
+          // scroll through it in our tests
+          key: Key('long_list'),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                '${items[index]}',
                 // Add a key to the Text Widget for each item. This allows
                 // us to look for a particular item in the list and verify the
                 // text is correct
                 key: Key('item_${index}_text'),
-              );
-            }),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
