@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'post.dart';
+import 'todo_list.dart';
 
 Future<Post> fetchPost(http.Client client) async {
   final response =
@@ -20,7 +21,8 @@ Future<Post> fetchPost(http.Client client) async {
 
 void main() {
   http.Client client = http.Client();
-  runApp(MyApp(post: fetchPost(client)));
+//  runApp(MyApp(post: fetchPost(client)));
+  runApp(TodoList());
 }
 
 class MyApp extends StatelessWidget {
