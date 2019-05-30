@@ -1,5 +1,6 @@
 import 'package:flutter_driver/driver_extension.dart';
-import 'package:unit_testing_sample/main.dart' as app;
+//import 'package:unit_testing_sample/main.dart' as app;
+import 'package:unit_testing_sample/long_list.dart' as app;
 
 void main() {
   // This line enables the extension
