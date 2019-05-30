@@ -19,5 +19,14 @@ void main() {
 
     // Expect to find the item on screen
     expect(find.text('test'), findsOneWidget);
+
+    // Swipe the item to dismiss it
+    await tester.drag(find.byType(Dismissible), Offset(500.0, 0.0));
+
+    // Build the Widget until the dismiss animation ends
+    await tester.pumpAndSettle();
+
+    // Ensure the item is no longer on screen
+    expect(find.text('test'), findsNothing);
   });
 }
