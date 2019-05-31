@@ -60,25 +60,36 @@ void main() {
       final listFinder = find.byValueKey('long_list');
       final itemFinder = find.byValueKey('item_50_text');
 
-      await driver.scrollUntilVisible(
-        // Scroll through this list
-        listFinder,
-        // Until we find this item
-        itemFinder,
-        // In order to scroll down the list, we need to provide a negative
-        // value to dyScroll. Ensure this value is a small enough increment to
-        // scroll the item into view without potentially scrolling past it.
-        //
-        // If you need to scroll through horizontal lists, provide a dxScroll
-        // argument instead
-        dyScroll: -300.0,
-      );
+      // Record a performance profile as we scroll through the list of items
+      final timeline = await driver.traceAction(() async {
+        await driver.scrollUntilVisible(
+          // Scroll through this list
+          listFinder,
+          // Until we find this item
+          itemFinder,
+          // In order to scroll down the list, we need to provide a negative
+          // value to dyScroll. Ensure this value is a small enough increment to
+          // scroll the item into view without potentially scrolling past it.
+          //
+          // If you need to scroll through horizontal lists, provide a dxScroll
+          // argument instead
+          dyScroll: -300.0,
+        );
+        // Verify the item contains the correct text
+        expect(await driver.getText(itemFinder), 'Item 50');
+      });
 
-      // Verify the item contains the correct text
-      expect(
-        await driver.getText(itemFinder),
-        'Item 50',
-      );
+      // Convert the Timeline into a TimelineSummary that's easier to read and
+      // understand.
+      final summary = new TimelineSummary.summarize(timeline);
+
+      // Then, save the summary to disk
+      summary.writeSummaryToFile('scrolling_summary', pretty: true);
+
+      // Optionally, write the entire timeline to disk in a json format. This
+      // file can be opened in the Chrome browser's tracing tools found by
+      // navigating to chrome://tracing.
+      summary.writeTimelineToFile('scrolling_timeline', pretty: true);
     });
   });
 }
